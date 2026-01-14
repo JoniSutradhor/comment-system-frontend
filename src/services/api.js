@@ -1,31 +1,17 @@
-import axios from "axios";
+import axios from 'axios';
 
-// const API_URL = import.meta.env.VITE_API_URL || 'http://localhost:5000/api' || 'https://comment-system-backend-sigma.vercel.app/api';
+const API_URL = import.meta.env.VITE_API_URL || 'http://localhost:5000/api';
 
-// const api = axios.create({
-//   baseURL: API_URL,
-//   headers: {
-//     'Content-Type': 'application/json'
-//   }
-// });
-
-const isProd = import.meta.env.PROD;
-
-const API_URL = isProd
-  ? "https://comment-system-backend-sigma.vercel.app/api"
-  : "http://localhost:5000/api";
-
-export const api = axios.create({
+const api = axios.create({
   baseURL: API_URL,
   headers: {
-    "Content-Type": "application/json",
-  },
-  withCredentials: true,
+    'Content-Type': 'application/json'
+  }
 });
 
 api.interceptors.request.use(
   (config) => {
-    const token = localStorage.getItem("token");
+    const token = localStorage.getItem('token');
     if (token) {
       config.headers.Authorization = `Bearer ${token}`;
     }
