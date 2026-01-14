@@ -34,7 +34,8 @@ body {
 .navbar {
   background-color: white;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-  padding: 1rem 0;
+  padding: 1rem;
+  width: full;
 
   .nav-container {
     max-width: 1200px;
@@ -502,3 +503,231 @@ button, .btn-primary, .btn-secondary {
     margin: 1rem;
   }
 }
+
+$primary: #0b8db3;
+$bg-light: #ecfbff;
+$text-dark: #0f172a;
+$text-muted: #64748b;
+$border: #dbeafe;
+
+.navbar {
+  background-color: $bg-light;
+  padding: 0.9rem 0;
+  border-bottom: 1px solid $border;
+}
+
+.nav-container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 1.5rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.nav-logo {
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: $primary !important;
+  text-decoration: none;
+}
+
+.nav-menu {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.nav-link {
+  font-size: 0.9rem;
+  color: $text-dark;
+  background: transparent;
+  border: none;
+  padding: 0.45rem 0.9rem;
+  border-radius: 6px;
+  cursor: pointer;
+  text-decoration: none;
+  transition: all 0.2s ease;
+
+  &:hover {
+    color: $primary;
+    background: rgba(11, 141, 179, 0.08);
+  }
+}
+
+/* Register / Login CTA style */
+.nav-link:last-child {
+  background-color: $primary;
+  color: white;
+
+  &:hover {
+    background-color: darken($primary, 6%);
+    color: white;
+  }
+}
+
+.nav-user {
+  font-size: 0.85rem;
+  color: $text-muted;
+  padding: 0 0.5rem;
+}
+
+
+// $primary: #0b8db3;
+// $light-bg: #ecfbff;
+// $text-dark: #0f172a;
+// $text-muted: #64748b;
+// $border: #e2e8f0;
+
+// body {
+//   margin: 0;
+//   font-family: Inter, sans-serif;
+// }
+
+// /* ===== TOP BAR ===== */
+// .topbar {
+//   background: $light-bg;
+//   padding: 1rem 0;
+// }
+
+// .topbar-container {
+//   max-width: 1200px;
+//   margin: auto;
+//   padding: 0 1.5rem;
+//   display: flex;
+//   justify-content: space-between;
+//   align-items: center;
+// }
+
+// .logo {
+//   font-size: 1.6rem;
+//   font-weight: 700;
+//   color: #3b3fc4;
+// }
+
+// .topbar-menu {
+//   display: flex;
+//   align-items: center;
+//   gap: 1rem;
+
+//   a {
+//     color: $text-dark;
+//     text-decoration: none;
+//     font-size: 0.9rem;
+//   }
+// }
+
+// .outline-btn {
+//   padding: 0.45rem 0.9rem;
+//   border: 1px solid $primary;
+//   background: transparent;
+//   color: $primary;
+//   border-radius: 6px;
+// }
+
+// .primary-btn {
+//   padding: 0.5rem 1rem;
+//   background: $primary;
+//   color: white;
+//   border-radius: 6px;
+//   border: none;
+// }
+
+// /* ===== AUTH CARD ===== */
+// .auth-wrapper {
+//   min-height: calc(100vh - 160px);
+//   display: flex;
+//   justify-content: center;
+//   align-items: center;
+// }
+
+// .auth-card {
+//   width: 100%;
+//   max-width: 420px;
+//   background: white;
+//   padding: 2.5rem;
+//   border-radius: 10px;
+//   box-shadow: 0 10px 30px rgba(0,0,0,0.08);
+
+//   h2 {
+//     margin-bottom: 0.3rem;
+//   }
+
+//   .subtitle {
+//     font-size: 0.9rem;
+//     color: $text-muted;
+//     margin-bottom: 1.5rem;
+//   }
+
+//   input {
+//     width: 100%;
+//     padding: 0.7rem;
+//     border-radius: 6px;
+//     border: 1px solid $border;
+//     margin-bottom: 1rem;
+//   }
+// }
+
+// .password-field {
+//   position: relative;
+
+//   .eye {
+//     position: absolute;
+//     right: 10px;
+//     top: 50%;
+//     transform: translateY(-50%);
+//     cursor: pointer;
+//   }
+// }
+
+// .auth-options {
+//   display: flex;
+//   justify-content: space-between;
+//   font-size: 0.85rem;
+//   margin-bottom: 1.5rem;
+
+//   .forgot {
+//     color: red;
+//     text-decoration: none;
+//   }
+// }
+
+// .submit-btn {
+//   width: 100%;
+//   background: $primary;
+//   color: white;
+//   padding: 0.75rem;
+//   border-radius: 6px;
+//   border: none;
+//   font-weight: 600;
+// }
+
+// .signup-text {
+//   text-align: center;
+//   margin-top: 1rem;
+//   font-size: 0.9rem;
+
+//   a {
+//     color: $primary;
+//   }
+// }
+
+// /* ===== FOOTER ===== */
+// .footer {
+//   background: $light-bg;
+//   padding: 1rem;
+//   text-align: center;
+//   font-size: 0.8rem;
+// }
+
+// .footer-links,
+// .footer-meta {
+//   margin-bottom: 0.5rem;
+
+//   a {
+//     color: $text-dark;
+//     margin: 0 0.3rem;
+//     text-decoration: none;
+//   }
+// }
+

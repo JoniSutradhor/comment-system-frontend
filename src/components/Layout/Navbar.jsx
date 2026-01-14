@@ -1,30 +1,39 @@
 import { Link } from "react-router-dom";
 import { useAuth } from "../../context/AuthContext";
-import { useEffect } from "react";
 
 const Navbar = () => {
   const { user, logout, isAuthenticated } = useAuth();
 
-  useEffect(() => {
-    console.log("User authentication status changed:", isAuthenticated);
-  }, [isAuthenticated]);
-
   return (
     <nav className="navbar">
-      {isAuthenticated ? (
-        <>
-          <Link to="/comments">Comments</Link>
+      <div className="nav-container">
+        <Link to="/" className="nav-logo">
+          Comment System
+        </Link>
 
-          <span>Hi, {user?.username}</span>
-
-          <button onClick={logout}>Logout</button>
-        </>
-      ) : (
-        <>
-          <Link to="/login">Login</Link>
-          <Link to="/register">Register</Link>
-        </>
-      )}
+        <div className="nav-menu">
+          {isAuthenticated ? (
+            <>
+              <Link to="/comments" className="nav-link">
+                Comments
+              </Link>
+              <span className="nav-user">Hi, {user?.username}</span>
+              <button onClick={logout} className="nav-link">
+                Logout
+              </button>
+            </>
+          ) : (
+            <>
+              <Link to="/login" className="nav-link">
+                Login
+              </Link>
+              <Link to="/register" className="nav-link">
+                Register
+              </Link>
+            </>
+          )}
+        </div>
+      </div>
     </nav>
   );
 };
