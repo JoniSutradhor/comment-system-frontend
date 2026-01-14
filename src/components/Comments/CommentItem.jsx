@@ -1,15 +1,16 @@
-import { useState } from 'react';
-import { useAuth } from '../../context/AuthContext';
-import { useComments } from '../../context/CommentContext';
-import CommentReply from './CommentReply';
+import { useState } from "react";
+import { useAuth } from "../../context/AuthContext";
+import { useComments } from "../../context/CommentContext";
+import CommentReply from "./CommentReply";
 
 const CommentItem = ({ comment }) => {
   const { user } = useAuth();
-  const { updateComment, deleteComment, likeComment, dislikeComment } = useComments();
+  const { updateComment, deleteComment, likeComment, dislikeComment } =
+    useComments();
   const [isEditing, setIsEditing] = useState(false);
   const [editContent, setEditContent] = useState(comment.content);
   const [showReply, setShowReply] = useState(false);
-  const [error, setError] = useState('');
+  const [error, setError] = useState("");
 
   const isOwner = user?._id === comment.user._id;
   const hasLiked = comment.likes.includes(user?._id);
@@ -17,24 +18,24 @@ const CommentItem = ({ comment }) => {
 
   const handleEdit = async () => {
     if (!editContent.trim()) {
-      return setError('Comment cannot be empty');
+      return setError("Comment cannot be empty");
     }
 
     try {
       await updateComment(comment._id, editContent);
       setIsEditing(false);
-      setError('');
+      setError("");
     } catch (err) {
-      setError(err.response?.data?.message || 'Failed to update comment');
+      setError(err.response?.data?.message || "Failed to update comment");
     }
   };
 
   const handleDelete = async () => {
-    if (window.confirm('Are you sure you want to delete this comment?')) {
+    if (window.confirm("Are you sure you want to delete this comment?")) {
       try {
         await deleteComment(comment._id);
       } catch (err) {
-        setError(err.response?.data?.message || 'Failed to delete comment');
+        setError(err.response?.data?.message || "Failed to delete comment");
       }
     }
   };
@@ -43,7 +44,7 @@ const CommentItem = ({ comment }) => {
     try {
       await likeComment(comment._id);
     } catch (err) {
-      console.error('Failed to like comment');
+      console.error("Failed to like comment");
     }
   };
 
@@ -51,107 +52,72 @@ const CommentItem = ({ comment }) => {
     try {
       await dislikeComment(comment._id);
     } catch (err) {
-      console.error('Failed to dislike comment');
+      console.error("Failed to dislike comment");
     }
   };
 
   const formatDate = (date) => {
-    return new Date(date).toLocaleDateString('en-US', {
-      year: 'numeric',
-      month: 'short',
-      day: 'numeric',
-      hour: '2-digit',
-      minute: '2-digit'
+    return new Date(date).toLocaleDateString("en-US", {
+      year: "numeric",
+      month: "short",
+      day: "numeric",
+      hour: "2-digit",
+      minute: "2-digit",
     });
   };
 
   return (
-    <div className="bg-white rounded-lg shadow-md p-6 mb-4">
-      <div className="flex justify-between items-start mb-3">
-        <span className="font-semibold text-gray-900">{comment.user.username}</span>
-        <span className="text-sm text-gray-500">{formatDate(comment.createdAt)}</span>
+    <div className="comment">
+      <div className="comment-header">
+        <span className="author">{comment.user.username}</span>
+        <span className="date">{formatDate(comment.createdAt)}</span>
       </div>
 
-      {error && (
-        <div className="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded mb-3">
-          {error}
-        </div>
-      )}
+      {error && <div className="error">{error}</div>}
 
       {isEditing ? (
-        <div className="mb-4">
+        <>
           <textarea
             value={editContent}
             onChange={(e) => setEditContent(e.target.value)}
-            rows="3"
-            maxLength="2000"
-            className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 resize-none"
+            rows={3}
+            maxLength={2000}
           />
-          <div className="flex gap-2 mt-2">
+          <div className="comment-actions">
+            <button onClick={handleEdit}>Save</button>
             <button
-              onClick={handleEdit}
-              className="px-4 py-2 bg-indigo-600 text-white text-sm font-medium rounded-md hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
-            >
-              Save
-            </button>
-            <button
+              className="danger"
               onClick={() => {
                 setIsEditing(false);
                 setEditContent(comment.content);
-                setError('');
+                setError("");
               }}
-              className="px-4 py-2 bg-gray-200 text-gray-700 text-sm font-medium rounded-md hover:bg-gray-300 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gray-500"
             >
               Cancel
             </button>
           </div>
-        </div>
+        </>
       ) : (
-        <p className="text-gray-800 mb-4">{comment.content}</p>
+        <div className="comment-body">{comment.content}</div>
       )}
 
-      <div className="flex gap-3 items-center flex-wrap">
-        <button
-          onClick={handleLike}
-          className={`px-3 py-1 text-sm rounded-md transition-colors ${
-            hasLiked
-              ? 'bg-indigo-100 text-indigo-700'
-              : 'bg-gray-100 text-gray-700 hover:bg-gray-200'
-          }`}
-        >
+      <div className="comment-actions">
+        <button onClick={() => likeComment(comment._id)}>
           👍 {comment.likes.length}
         </button>
-        
-        <button
-          onClick={handleDislike}
-          className={`px-3 py-1 text-sm rounded-md transition-colors ${
-            hasDisliked
-              ? 'bg-red-100 text-red-700'
-              : 'bg-gray-100 text-gray-700 hover:bg-gray-200'
-          }`}
-        >
+
+        <button onClick={() => dislikeComment(comment._id)}>
           👎 {comment.dislikes.length}
         </button>
 
-        <button
-          onClick={() => setShowReply(!showReply)}
-          className="px-3 py-1 text-sm bg-gray-100 text-gray-700 rounded-md hover:bg-gray-200 transition-colors"
-        >
+        <button onClick={() => setShowReply(!showReply)}>
           💬 Reply ({comment.replies.length})
         </button>
 
         {isOwner && !isEditing && (
           <>
-            <button
-              onClick={() => setIsEditing(true)}
-              className="px-3 py-1 text-sm text-indigo-600 hover:text-indigo-800 transition-colors"
-            >
-              ✏️ Edit
-            </button>
-            <button
-              onClick={handleDelete}
-              className="px-3 py-1 text-sm text-red-600 hover:text-red-800 transition-colors"
-            >
+            <button onClick={() => setIsEditing(true)}>✏️ Edit</button>
+            <button className="danger" onClick={handleDelete}>
               🗑️ Delete
             </button>
           </>
@@ -159,21 +125,25 @@ const CommentItem = ({ comment }) => {
       </div>
 
       {comment.replies.length > 0 && (
-        <div className="mt-4 ml-6 border-l-2 border-gray-200 pl-4">
-          <p className="text-sm font-semibold text-gray-700 mb-3">Replies:</p>
+        <div className="reply-list">
           {comment.replies.map((reply, index) => (
-            <div key={index} className="bg-gray-50 rounded-md p-4 mb-3">
-              <div className="flex justify-between items-start mb-2">
-                <span className="font-medium text-gray-900 text-sm">{reply.user.username}</span>
-                <span className="text-xs text-gray-500">{formatDate(reply.createdAt)}</span>
+            <div className="comment" key={index}>
+              <div className="comment-header">
+                <span className="author">{reply.user.username}</span>
+                <span className="date">{formatDate(reply.createdAt)}</span>
               </div>
-              <p className="text-gray-700 text-sm">{reply.content}</p>
+              <div className="comment-body">{reply.content}</div>
             </div>
           ))}
         </div>
       )}
 
-      {showReply && <CommentReply commentId={comment._id} onClose={() => setShowReply(false)} />}
+      {showReply && (
+        <CommentReply
+          commentId={comment._id}
+          onClose={() => setShowReply(false)}
+        />
+      )}
     </div>
   );
 };
