@@ -116,7 +116,7 @@ export const CommentProvider = ({ children }) => {
 
   const likeComment = async (commentId) => {
     try {
-      const { data } = await api.post(`/comments/${commentId}/mostLiked`);
+      const { data } = await api.post(`/comments/${commentId}/like`);
       socket?.emit("like-comment", {
         pageId,
         commentId,
