@@ -1,35 +1,3 @@
-// import { Link } from 'react-router-dom';
-// import { useAuth } from '../../context/AuthContext';
-
-// const Navbar = () => {
-//   const { user, logout, isAuthenticated } = useAuth();
-
-//   return (
-//           {isAuthenticated ? (
-//             <>
-
-//                 Comments
-
-//               Hi, {user?.username}
-
-//                 Logout
-
-//             </>
-//           ) : (
-//             <>
-
-//                 Login
-
-//                 Register
-
-//             </>
-//           )}
-
-//   );
-// };
-
-// export default Navbar;
-
 import { Link } from "react-router-dom";
 import { useAuth } from "../../context/AuthContext";
 import { useEffect } from "react";

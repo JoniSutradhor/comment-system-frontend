@@ -1,18 +1,3 @@
-// import { Navigate } from 'react-router-dom';
-// import { useAuth } from '../../context/AuthContext';
-
-// const ProtectedRoute = ({ children }) => {
-//   const { isAuthenticated, loading } = useAuth();
-
-//   if (loading) {
-//     return "Loading...";
-//   }
-
-//   return isAuthenticated ? children : "Not allowed. Please log in to access this page.";
-// };
-
-// export default ProtectedRoute;
-
 import { Navigate } from 'react-router-dom';
 import { useAuth } from '../../context/AuthContext';
 
